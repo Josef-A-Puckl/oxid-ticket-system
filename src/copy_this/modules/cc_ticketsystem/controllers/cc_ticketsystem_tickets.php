@@ -170,7 +170,7 @@ class cc_ticketsystem_tickets extends Shop_Config {
 		$oTicketList = oxNew('oxList');
 		$oTicketList->init('cc_ticket');
 		$oTicketList->selectString($sSelect);
-		$this->_aTicketList = $this->_prepareForTemplate( $oTicketList->getArray());
+		$this->_aTicketList = $this->_prepareForTemplate($oTicketList->getArray());
 		return $this->_aTicketList;
 	}
 
@@ -188,8 +188,17 @@ class cc_ticketsystem_tickets extends Shop_Config {
 			$aTickets[$oTicket->cctickets__state->rawValue][$sTicketId]['user'] = $oTicket->cctickets__oxuserid->rawValue;
 			$aTickets[$oTicket->cctickets__state->rawValue][$sTicketId]['subject'] = $oTicket->cctickets__subject->rawValue;
 			$aTickets[$oTicket->cctickets__state->rawValue][$sTicketId]['updated'] = $oTicket->cctickets__updated->rawValue;
+			$aTickets[$oTicket->cctickets__state->rawValue][$sTicketId]['author'] = $this->_getAuthor($oTicket->cctickets__oxuserid->rawValue);
 		}
 		return $aTickets;
+	}
+
+	protected function _getAuthor($oxid) {
+		$oUser = oxNew('oxUser');
+		$oUser->load($oxid);
+		if ($oUser->oxuser__oxcompany->rawValue)
+			$sUserComp = $oUser->oxuser__oxcompany->rawValue . ', ';
+		return $this->_sUserFullName = $sUserComp . $oUser->oxuser__oxfname->rawValue . ' ' . $oUser->oxuser__oxlname->rawValue . ', #' . $oUser->oxuser__oxcustnr->rawValue;
 	}
 
 	/**
@@ -199,8 +208,8 @@ class cc_ticketsystem_tickets extends Shop_Config {
 	*/
 
 	public function updateTicket() {
-		$sText = trim( oxRegistry::getConfig()->getRequestParameter('tickettext', true));
-		$sTicketId = trim( oxRegistry::getConfig()->getRequestParameter('oxid', true));
+		$sText = trim(oxRegistry::getConfig()->getRequestParameter('tickettext', true));
+		$sTicketId = trim(oxRegistry::getConfig()->getRequestParameter('oxid', true));
 		$sTimestamp = date('Y-m-d H:i:s');
 		$oTicket = oxNew('cc_ticket');
 		$oTicket->load($sTicketId);
@@ -225,7 +234,7 @@ class cc_ticketsystem_tickets extends Shop_Config {
 	*/
 
 	public function lock() {
-		$sTicketId = trim( (string) $_GET['ticket'] );
+		$sTicketId = trim((string) $_GET['ticket']);
 		$oTicket = oxNew('cc_ticket');
 		$oTicket->load($sTicketId);
 		$oTicket->cctickets__state = new oxField($oTicket::STATE_CLOSED);
@@ -240,11 +249,30 @@ class cc_ticketsystem_tickets extends Shop_Config {
 	*/
 
 	public function unlock() {
-		$sTicketId = trim( (string) $_GET['ticket'] );
+		$sTicketId = trim((string) $_GET['ticket']);
 		$oTicket = oxNew('cc_ticket');
 		$oTicket->load($sTicketId);
 		$oTicket->cctickets__state = new oxField($oTicket::STATE_ADMIN_ACTION);
 		$oTicket->save();
+		return;
+	}
+
+	public function deletetext() {
+		$sTicketId = trim((string) $_GET['ticket']);
+		$aSql[] = "DELETE FROM cctickettexts WHERE OXID= '$sTicketId';";
+		foreach ($aSql as $sSql) {
+			oxDb::getDb()->execute($sSql);
+		}
+		return;
+	}
+
+	public function delete() {
+		$sTicketId = trim((string) $_GET['ticket']);
+		$aSql[] = "DELETE FROM cctickets WHERE OXID= '$sTicketId';";
+		$aSql[] = "DELETE FROM cctickettexts WHERE TICKETID= '$sTicketId';";
+		foreach ($aSql as $sSql) {
+			oxDb::getDb()->execute($sSql);
+		}
 		return;
 	}
 

@@ -38,7 +38,7 @@ $aModule = array(
   ),
   'lang' => 'de',
   'thumbnail'    => 'CommerceCoding.png',
-  'version'      => '1.0',
+  'version'      => '1.0.1',
   'author'       => 'Commerce Coding',
   'url'          => 'http://www.commerce-coding.de',
   'email'        => 'info@commerce-coding.de',
@@ -53,13 +53,14 @@ $aModule = array(
     'cc_ticketsystem_tickets' => 'cc_ticketsystem/controllers/cc_ticketsystem_tickets.php'
   ),
   'blocks' => array(
-    array('template' => 'page/account/dashboard.tpl',        'block' => 'account_dashboard_col2',         'file' => 'views/blocks/page/account/dashboard'),
-    array('template' => 'page/account/inc/account_menu.tpl', 'block' => 'account_menu',                   'file' => 'views/blocks/page/account/inc/account_menu'),
-    array('template' => 'widget/header/servicebox.tpl',      'block' => 'widget_header_servicebox_items', 'file' => 'views/blocks/widget/header/servicebox')
+    array('template' => 'page/account/dashboard.tpl',        'block' => 'account_dashboard_col2',         'file' => 'views/blocks/page/account/dashboard.tpl'),
+    array('template' => 'page/account/inc/account_menu.tpl', 'block' => 'account_menu',                   'file' => 'views/blocks/page/account/inc/account_menu.tpl'),
+    array('template' => 'widget/header/servicebox.tpl',      'block' => 'widget_header_servicebox_items', 'file' => 'views/blocks/widget/header/servicebox.tpl')
   ),
   'settings' => array(
     array('group' => 'main', 'name' => 'ccSendmail',    'type' => 'bool', 'value' => 'true'),
-    array('group' => 'main', 'name' => 'ccSupportname', 'type' => 'str',  'value' => 'Support')
+    array('group' => 'main', 'name' => 'ccSupportname', 'type' => 'str',  'value' => 'Support'),
+    array('group' => 'main', 'name' => 'ccSignature',   'type' => 'str',  'value' => 'Viele Grüße')
   ),
   'templates' => array(
     'cc_ticketsystem_overview.tpl'     => 'cc_ticketsystem/views/admin/tpl/cc_ticketsystem_overview.tpl',

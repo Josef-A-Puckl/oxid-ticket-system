@@ -1,3 +1,4 @@
+[{assign var="oConf" value=$oViewConf->getConfig()}]
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <div class=container" style="max-width:1000px;">
@@ -9,10 +10,13 @@
       <table cellspacing="0" cellpadding="0" class="table table-bordered table-striped table-hover">
         <tr>
           <td style="width:80%;"><strong><img src="[{$text.image}]"> [{$text.author}]</strong></td>
-          <td style="width:20%;">[{$text.timestamp|date_format:"%d.%m.%Y, %H:%M"}]</td>
+          <td style="width:18%;">[{$text.timestamp|date_format:"%d.%m.%Y, %H:%M"}]</td>
+          <td style="width:2%;">
+                <a href="[{$oViewConf->getSelfLink()}]cl=cc_ticketsystem_tickets&ticket=[{$text.ticketoxid}]&fnc=deletetext"><b>X</b></a>
+          </td>
         </tr>
         <tr>
-          <td colspan=2>[{$text.text}]</td>
+          <td colspan=3>[{$text.text}]</td>
         </tr>
       </table>
     [{/foreach}]
@@ -25,7 +29,7 @@
             <input type="hidden" name="oxid" value="[{$oView->getTicketOxid()}]">
             <div class="form-group">
               <label>[{ oxmultilang ident="CC_TICKETSYSTEM_MESSAGE" }]</label>
-              <textarea name="tickettext" class="form-control" rows="6"></textarea>
+              <textarea name="tickettext" class="form-control" rows="6">[{$oConf->getConfigParam('ccSignature')}]</textarea>
             </div>
             <button type="submit" class="btn btn-info btn-block btn-sm submitButton">[{ oxmultilang ident="CC_TICKETSYSTEM_SEND" }]</button>
         </form>

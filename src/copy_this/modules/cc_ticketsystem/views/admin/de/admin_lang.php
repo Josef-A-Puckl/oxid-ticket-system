@@ -39,5 +39,6 @@ $aLang = array(
   'CC_TICKETSYSTEM_HELLO' => 'Hallo',
   'CC_TICKETSYSTEM_ANSWER' => 'Antwort:',
   'CC_TICKETSYSTEM_NEW_ANSWER' => 'zu Ihrem Ticket wurde eine neue Antwort hinzugef&uuml;gt.',
-  'CC_TICKETSYSTEM_GOTO_TICKET' => 'Zum Ticket'
+  'CC_TICKETSYSTEM_GOTO_TICKET' => 'Zum Ticket',
+  'CC_TICKETSYSTEM_DELETE' => 'Ticket l&ouml;schen',
 );

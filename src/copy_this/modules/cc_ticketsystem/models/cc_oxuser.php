@@ -42,7 +42,7 @@ class cc_oxuser extends cc_oxuser_parent {
     $aTickets = array();
 
     foreach($aTicketList as $oTicket) {
-      $sTicketId = $oTicket->cctickets__oxid->rawValue;
+      $sTicketId = $oTicket->cctickets__oxid->rawValue; 
       $aTickets[$sTicketId]['ticketid'] = $sTicketId;
       $aTickets[$sTicketId]['subject'] = $oTicket->cctickets__subject->rawValue;
       $aTickets[$sTicketId]['state'] = $this->_getStateText($oTicket->cctickets__state->rawValue);
