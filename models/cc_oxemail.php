@@ -59,20 +59,20 @@ class cc_oxemail extends cc_oxemail_parent {
 		$oUser = oxRegistry::getSession()->getUser();
 		if ($oUser->oxuser__oxcompany->rawValue)
 			$sUserComp = $oUser->oxuser__oxcompany->rawValue . ', ';
-		$sUserName = $this->_sUserFullName = $sUserComp . $oUser->oxuser__oxfname->rawValue . ' ' . $oUser->oxuser__oxlname->rawValue . ', #' . $oUser->oxuser__oxcustnr->rawValue;
+		$sUserName = $this->_sUserFullName = $sUserComp . $oUser->oxuser__oxfname->rawValue . ' ' . $oUser->oxuser__oxlname->rawValue;
 		$sUserEmail = $oUser->oxuser__oxusername->value;
 		//set mail params (from, fromName, smtp... )
 		$this->_setMailParams($oShop);
 		$oLang = oxRegistry::getLang();
 		$oSmarty = $this->_getSmarty();
-		$this->setViewData("text", nl2br($sTicketText));
-		$this->setViewData("url", $sUrl);
-		$this->setViewData("username", $sUserName);
-		$this->setViewData("useremail", $sUserEmail);
-		// Process view data array through oxoutput processor
-		$this->_processViewArray();
-		$this->setRecipient($oShop->oxshops__oxowneremail->value, $oShop->oxshops__oxname->getRawValue());
-		$this->setFrom($oShop->oxshops__oxowneremail->value, $oShop->oxshops__oxname->getRawValue());
+		$oSmarty->assign("text", nl2br($sTicketText));
+		$oSmarty->assign("url", $sUrl);
+		$oSmarty->assign("username", $sUserName);
+		$oSmarty->assign("useremail", $sUserEmail);
+
+		$this->setRecipient($oShop->oxshops__oxinfoemail->value, $oShop->oxshops__oxname->getRawValue());
+		$this->setFrom($oShop->oxshops__oxinfoemail->value, $oShop->oxshops__oxname->getRawValue());
+        $this->setReplyTo($sUserEmail, $sUserName);
 		$this->setBody($oSmarty->fetch($oxConfig->getTemplatePath($this->_sTicketNewAdminTemplatePlain, false)));
 		$this->setAltBody("");
 		$this->setSubject($oLang->translateString('CC_TICKETSYSTEM_NEW_TICKET') . ': ' . $sTicketTitle);
@@ -95,20 +95,20 @@ class cc_oxemail extends cc_oxemail_parent {
 		$oUser = oxRegistry::getSession()->getUser();
 		if ($oUser->oxuser__oxcompany->rawValue)
 			$sUserComp = $oUser->oxuser__oxcompany->rawValue . ', ';
-		$sUserName = $this->_sUserFullName = $sUserComp . $oUser->oxuser__oxfname->rawValue . ' ' . $oUser->oxuser__oxlname->rawValue . ', #' . $oUser->oxuser__oxcustnr->rawValue;
+		$sUserName = $this->_sUserFullName = $sUserComp . $oUser->oxuser__oxfname->rawValue . ' ' . $oUser->oxuser__oxlname->rawValue;
 		$sUserEmail = $oUser->oxuser__oxusername->value;
 		//set mail params (from, fromName, smtp... )
 		$this->_setMailParams($oShop);
 		$oLang = oxRegistry::getLang();
 		$oSmarty = $this->_getSmarty();
-		$this->setViewData("text", nl2br($sTicketText));
-		$this->setViewData("url", $sUrl);
-		$this->setViewData("username", $sUserName);
-		$this->setViewData("useremail", $sUserEmail);
-		// Process view data array through oxoutput processor
-		$this->_processViewArray();
-		$this->setRecipient($oShop->oxshops__oxowneremail->value, $oShop->oxshops__oxname->getRawValue());
-		$this->setFrom($oShop->oxshops__oxowneremail->value, $oShop->oxshops__oxname->getRawValue());
+		$oSmarty->assign("text", nl2br($sTicketText));
+		$oSmarty->assign("url", $sUrl);
+		$oSmarty->assign("username", $sUserName);
+		$oSmarty->assign("useremail", $sUserEmail);
+
+		$this->setRecipient($oShop->oxshops__oxinfoemail->value, $oShop->oxshops__oxname->getRawValue());
+		$this->setFrom($oShop->oxshops__oxinfoemail->value, $oShop->oxshops__oxname->getRawValue());
+        $this->setReplyTo($sUserEmail, $sUserName);
 		$this->setBody($oSmarty->fetch($oxConfig->getTemplatePath($this->_sTicketUpdateAdminTemplatePlain, false)));
 		$this->setAltBody("");
 		$this->setSubject($oLang->translateString('CC_TICKETSYSTEM_TICKET_UPDATE') . ': ' . $sTicketTitle);
@@ -136,13 +136,12 @@ class cc_oxemail extends cc_oxemail_parent {
 		$this->_setMailParams($oShop);
 		$oLang = oxRegistry::getLang();
 		$oSmarty = $this->_getSmarty();
-		$this->setViewData("text", nl2br($sTicketText));
-		$this->setViewData("fullname", $sFullName);
-		$this->setViewData("url", $sUrl);
-		// Process view data array through oxoutput processor
-		$this->_processViewArray();
+		$oSmarty->assign("text", nl2br($sTicketText));
+		$oSmarty->assign("fullname", $sFullName);
+		$oSmarty->assign("url", $sUrl);
+
 		$this->setRecipient($oUser->oxuser__oxusername->value, $sFullName);
-		$this->setFrom($oShop->oxshops__oxowneremail->value, $oShop->oxshops__oxname->getRawValue());
+		$this->setFrom($oShop->oxshops__oxinfoemail->value, $oShop->oxshops__oxname->getRawValue());
 		$this->setBody($oSmarty->fetch($oxConfig->getTemplatePath($this->_sTicketUpdateUserTemplatePlain, false)));
 		$this->setAltBody("");
 		$this->setSubject($oLang->translateString('CC_TICKETSYSTEM_TICKET_UPDATE') . ': ' . $oTicket->cctickets__subject->rawValue);

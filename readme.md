@@ -1,8 +1,13 @@
 ## Title ##
 CommerceCoding Ticketsystem
 
+## Installation ##
+* composer require ecs/ticketsystem
+* update the database with install.sql in the admin area via Service/Tools
+* aktivate module, clear tmp directory
+
 ## OXID eShop compatibility ##
-**v4.9.x, v4.10.x, Responsive Themes (like Flow)**, by <https://ecomstyle.de>
+v6.x
 
 ## Author ##
 Alexander Diebler
@@ -32,10 +37,6 @@ A ticket system for receiving and handling customer inquiries.
 --sendTicketUpdateToAdmin
 --sendTicketUpdateToUser
 
-## Installation ##
-* copy contents from copy_this directory into the shop root
-* **update the database with install.sql** in the admin area via Service/Tools
-* clear tmp directory
 
 ## Resources ##
 admin.png - http://www.iconarchive.com/show/vista-people-icons-by-icons-land.html

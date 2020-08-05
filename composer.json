@@ -1,0 +1,14 @@
+{
+    "name": "ecs/ticketsystem",
+    "description": "",
+    "type": "oxideshop-module",
+    "version": "1.0.2",
+    "license": [
+        "GPL-3.0-only"
+    ],
+    "extra": {
+        "oxideshop": {
+            "target-directory": "cc_ticketsystem"
+        }
+    }
+}
