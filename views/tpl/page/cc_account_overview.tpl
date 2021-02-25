@@ -1,5 +1,10 @@
 [{capture append="oxidBlock_content"}]
     <h1 class="page-header pageHead">[{ oxmultilang ident="CC_TICKETSYSTEM_MY_TICKETS" }]</h1>
+
+    [{oxifcontent ident="supportticketsinfo" object="oCont"}]
+        [{$oCont->oxcontents__oxcontent->value}]
+    [{/oxifcontent}]
+
     <table class="table table-bordered table-striped table-hover" cellspacing="0" cellpadding="0">
         <tr>
             <th style="width:60%;">Ticket</th>

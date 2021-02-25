@@ -37,7 +37,7 @@ $aModule = [
                     'en' => 'A ticket system for receiving and handling customer inquiries.'
   ],
   'thumbnail'    => 'CommerceCoding.png',
-  'version'      => '1.0.2',
+  'version'      => '1.0.3',
   'author'       => 'Commerce Coding',
   'url'          => 'http://www.commerce-coding.de',
   'email'        => 'info@commerce-coding.de',
